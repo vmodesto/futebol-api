@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_06_024153) do
+ActiveRecord::Schema.define(version: 2021_10_11_055912) do
 
   create_table "championships", force: :cascade do |t|
     t.string "name"
@@ -22,8 +22,17 @@ ActiveRecord::Schema.define(version: 2021_10_06_024153) do
     t.string "region"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id"
-    t.index ["user_id"], name: "index_championships_on_user_id"
+  end
+
+  create_table "championships_users", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "championship_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["championship_id", "user_id"], name: "index_championships_users_on_championship_id_and_user_id", unique: true
+    t.index ["championship_id"], name: "index_championships_users_on_championship_id"
+    t.index ["user_id", "championship_id"], name: "index_championships_users_on_user_id_and_championship_id", unique: true
+    t.index ["user_id"], name: "index_championships_users_on_user_id"
   end
 
   create_table "current_issues", force: :cascade do |t|
@@ -62,7 +71,8 @@ ActiveRecord::Schema.define(version: 2021_10_06_024153) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "championships", "users"
+  add_foreign_key "championships_users", "championships"
+  add_foreign_key "championships_users", "users"
   add_foreign_key "current_issues", "championships"
   add_foreign_key "current_phases", "championships"
 end

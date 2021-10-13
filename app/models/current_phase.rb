@@ -1,3 +1,3 @@
 class CurrentPhase < ApplicationRecord
-  belongs_to :championship
+  belongs_to :championship, dependent: :destroy
 end
