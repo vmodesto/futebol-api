@@ -4,5 +4,5 @@ class User < ApplicationRecord
   acts_as_token_authenticatable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  has_many :championships
+  has_and_belongs_to_many :championships
 end
