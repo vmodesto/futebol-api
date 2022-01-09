@@ -4,7 +4,7 @@ module SoccerApi
     PARAMS = {:sections => 42336}
     def get_championships
       response = Faraday.get URL, PARAMS do |request|
-        request.headers["Authorization"] = $api_key
+        request.headers["Authorization"] = ENV['SOCCER_API_KEY']
       end
       championships = JSON.parse response.body
       return championships

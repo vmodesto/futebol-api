@@ -28,12 +28,12 @@ gem 'rack-cors'
 # protect from too much requests
 gem  'rack-attack'
 
-# used for users authentications
-gem 'devise'
+# used for authentications with token
+gem 'jwt'
 
-# used to verify user authentication
-gem 'simple_token_authentication', '~> 1.0'
+gem 'dotenv-rails', group: [:development, :test]
 
+# http client for api requests
 gem 'faraday'
 
 group :development, :test do

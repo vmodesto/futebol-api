@@ -1,6 +1,12 @@
 class Api::V1::UsersController < Api::V1::ApiController
-
   before_action :set_championship, only: [:new_championship, :destroy_championship]
+  before_action :require_login
+  skip_before_action :require_login, only: [:create]
+  
+  def create
+    @user = User.create!(user_params)
+    render json: @user, status: :created
+  end
 
   def championships
     @championships = current_user.championships
@@ -35,6 +41,10 @@ class Api::V1::UsersController < Api::V1::ApiController
   private
   def set_championship
       @championship = Championship.find(params[:id])
+  end
+
+  def user_params
+    params.require(:user).permit(:username, :password, :email)
   end
   
 end

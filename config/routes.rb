@@ -7,9 +7,10 @@ Rails.application.routes.draw do
       get 'users/championships', to: 'users#championships'
       post 'users/championships/:id', to: 'users#new_championship'
       delete 'users/championships/:id', to: 'users#destroy_championship'
+      post 'users', to: 'users#create'
+      post 'login', to: 'login#create'
     end
   end
-  devise_for :users
   
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
